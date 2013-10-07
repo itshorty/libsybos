@@ -11,7 +11,7 @@
     <name>libsybos</name>
     <groupId>at.ff-esternberg.sybos</groupId>
     <artifactId>libsybos</artifactId>
-    <version>0.1-beta1</version>
+    <version>0.1-beta2-SNAPSHOT</version>
 
     <url>http://www.ff-esternberg.at</url>
 
@@ -19,7 +19,7 @@
         <connection>scm:git:git@github.com:itshorty/libsybos</connection>
         <url>https://github.com/itshorty/libsybos</url>
         <developerConnection>scm:git:git@github.com:itshorty/libsybos</developerConnection>
-        <tag>libsybos-0.1-beta1_mvnfix</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
