@@ -3,20 +3,31 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <name>libsybos</name>
     <groupId>at.ff-esternberg.sybos</groupId>
     <artifactId>libsybos</artifactId>
     <version>0.1-SNAPSHOT</version>
+
     <url>http://www.ff-esternberg.at</url>
+
     <scm>
         <connection>scm:git:git@github.com:itshorty/libsybos</connection>
         <url>https://github.com/itshorty/libsybos</url>
         <developerConnection>scm:git:git@github.com:itshorty/libsybos</developerConnection>
     </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.slf4j>1.7.1</version.slf4j>
     </properties>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -37,6 +48,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -44,4 +56,5 @@
             <version>${version.slf4j}</version>
         </dependency>
     </dependencies>
+
 </project>
