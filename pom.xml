@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -13,7 +11,7 @@
     <name>libsybos</name>
     <groupId>at.ff-esternberg.sybos</groupId>
     <artifactId>libsybos</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1-beta1</version>
 
     <url>http://www.ff-esternberg.at</url>
 
@@ -21,7 +19,8 @@
         <connection>scm:git:git@github.com:itshorty/libsybos</connection>
         <url>https://github.com/itshorty/libsybos</url>
         <developerConnection>scm:git:git@github.com:itshorty/libsybos</developerConnection>
-    </scm>
+      <tag>libsybos-0.1-beta1</tag>
+  </scm>
 
     <licenses>
         <license>
