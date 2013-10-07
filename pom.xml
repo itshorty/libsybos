@@ -3,21 +3,45 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>at.ffesternberg.sybos</groupId>
-        <artifactId>sybos</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>libsybos</artifactId>
     <name>libsybos</name>
+    <groupId>at.ff-esternberg.sybos</groupId>
+    <artifactId>libsybos</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <url>http://www.ff-esternberg.at</url>
+    <scm>
+        <connection>scm:git:git@github.com:itshorty/libsybos</connection>
+        <url>https://github.com/itshorty/libsybos</url>
+        <developerConnection>scm:git:git@github.com:itshorty/libsybos</developerConnection>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.slf4j>1.7.1</version.slf4j>
     </properties>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.4.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
         </dependency>
     </dependencies>
 </project>
