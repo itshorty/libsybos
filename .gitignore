@@ -1,1 +1,5 @@
 target/
+.classpath
+.project
+libsybos.iml
+.settings/
