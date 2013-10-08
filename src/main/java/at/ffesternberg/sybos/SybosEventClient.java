@@ -51,13 +51,13 @@ public class SybosEventClient extends SybosClient<Event> {
     @Override
     public List<Event> loadEntites() throws SybosClientException {
         HashSet<Event> evSet = new HashSet<Event>();
-        if (isLoadFuture()) {
-            getArgs().put("z", "future");
-            evSet.addAll(super.loadEntites());
-        }
         if (isLoadPast()) {
             getArgs().put("z", "past");
             setOrder(ORDER_DESC);
+            evSet.addAll(super.loadEntites());
+        }
+        if (isLoadFuture()) {
+            getArgs().put("z", "future");
             evSet.addAll(super.loadEntites());
         }
         List<Event> evList = new LinkedList<Event>();
