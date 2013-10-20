@@ -5,17 +5,13 @@ import at.ffesternberg.sybos.exception.SybosClientException;
 import org.w3c.dom.Element;
 
 import java.text.ParseException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Sybos client for the endpoint xmlVeranstaltung.php
  */
 public class SybosEventClient extends SybosClient<Event> {
     private boolean loadPast = false;
-    private boolean loadFuture = true;
 
     public SybosEventClient(String baseUrl, String token) {
         super(baseUrl, token);
@@ -48,22 +44,15 @@ public class SybosEventClient extends SybosClient<Event> {
         return ev;
     }
 
+
     @Override
-    public List<Event> loadEntites() throws SybosClientException {
-        HashSet<Event> evSet = new HashSet<Event>();
-        if (isLoadPast()) {
-            getArgs().put("z", "past");
-            setOrder(ORDER_DESC);
-            evSet.addAll(super.loadEntites());
+    public Map<String, String> getArgs() {
+        Map<String,String> args = super.getArgs();
+        if(isLoadPast()){
+            args.put("z","past");
+        }else{
+            args.put("z","future");
         }
-        if (isLoadFuture()) {
-            getArgs().put("z", "future");
-            evSet.addAll(super.loadEntites());
-        }
-        List<Event> evList = new LinkedList<Event>();
-        evList.addAll(evSet);
-        Collections.sort(evList);
-        return evList;
     }
 
     /**
@@ -83,21 +72,4 @@ public class SybosEventClient extends SybosClient<Event> {
     public void setLoadPast(boolean loadPast) {
         this.loadPast = loadPast;
     }
-
-    /**
-     * Is loading future Events
-     *
-     * @return
-     */
-    public boolean isLoadFuture() {
-        return loadFuture;
-    }
-
-    /**
-     * Set loading future Events
-     */
-    public void setLoadFuture(boolean loadFuture) {
-        this.loadFuture = loadFuture;
-    }
-
 }

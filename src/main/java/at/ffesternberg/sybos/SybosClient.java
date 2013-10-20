@@ -33,9 +33,6 @@ import java.util.regex.Pattern;
  * @param <T>
  */
 public abstract class SybosClient<T extends SybosEntity> {
-    public static final String ORDER_ASC = "asc";
-    public static final String ORDER_DESC = "desc";
-
     private static final Logger log = LoggerFactory
             .getLogger(SybosClient.class);
     private static final String NO_TOKEN = "Token fehlt";
@@ -48,7 +45,11 @@ public abstract class SybosClient<T extends SybosEntity> {
     private String baseUrl;
     private String token;
     private int count = 60;
-    private String order = ORDER_ASC;
+    private int offset = 0;
+    private int thumbHeight = -1;
+    private int mediumHeight = -1;
+    //private int id;
+    private SybosOrder order=SybosOrder.DEFAULT;
     private Map<String, String> args = new HashMap<String, String>();
 
     /**
@@ -136,7 +137,12 @@ public abstract class SybosClient<T extends SybosEntity> {
     private String getArguments() {
         StringBuilder sb = new StringBuilder();
         sb.append("&a=").append(getCount());
-        sb.append("&o=").append(getOrder());
+        sb.append("&o=").append(getOrder().getOrderString());
+        sb.append("&f=").append(getOffset());
+        if(thumbHeight>0)
+            sb.append("&thumbHeight=").append(getThumbHeight());
+        if(mediumHeight>0)
+            sb.append("&mediumHeight").append(getMediumHeight());
         if (args != null) {
             for (Entry<String, String> argument : args.entrySet()) {
                 sb.append("&").append(argument.getKey()).append("=")
@@ -147,7 +153,7 @@ public abstract class SybosClient<T extends SybosEntity> {
     }
 
     /**
-     * get current entity limit
+     * get current entity limit (api parameter a)
      *
      * @return
      */
@@ -156,37 +162,89 @@ public abstract class SybosClient<T extends SybosEntity> {
     }
 
     /**
-     * Set entity limit
+     * Set entity limit (api parameter a)
      *
      * @param count
      */
     public void setCount(int count) {
-        if (count > 0)
-            this.count = count;
-        else
-            this.count = 1;
+        if (count < 0)
+            throw new IllegalArgumentException("Count < 0: "+count);
+        this.count = count;
     }
 
 
     /**
-     * the order of the request
+     * the order of the request (api parameter o)
      *
      * @return
      */
-    public String getOrder() {
+    public SybosOrder getOrder() {
         return order;
     }
 
     /**
-     * Order of the request
+     * Order of the request (api parameter o)
      *
      * @param order
      */
-    public void setOrder(String order) {
-        if (order.equals(ORDER_ASC) || order.equals(ORDER_DESC))
-            this.order = order;
-        else
-            this.order = ORDER_ASC;
+    public void setOrder(SybosOrder order) {
+        if(order == null){
+            this.order=SybosOrder.DEFAULT;
+        }else{
+            this.order=order;
+        }
+
+    }
+
+    /**
+     * Offest of the request (for pageing) (api parameter f)
+     * @return
+     */
+    public int getOffset() {
+        return offset;
+    }
+
+    /**
+     * Offest of the request (for pageing) (api parameter f)
+     * @param offset
+     */
+    public void setOffset(int offset) {
+        if(offset<0)
+            throw new IllegalArgumentException("Offset < 0:"+ offset);
+        this.offset = offset;
+    }
+
+    /**
+     * Height of the returned pictures (resized by keeping aspect ratio) (api parameter thumbHeight)
+     *
+     * If negative (thumbHeight<0) the parameter is ignored and sybos default is used
+     */
+    public int getThumbHeight() {
+        return thumbHeight;
+    }
+    /**
+     * Height of the returned pictures (resized by keeping aspect ratio) (api parameter thumbHeight)
+     *
+     * If negative (thumbHeight<0) the parameter is ignored and sybos default is used
+     */
+    public void setThumbHeight(int thumbHeight) {
+        this.thumbHeight = thumbHeight;
+    }
+    /**
+     * Height of the returned pictures (resized by keeping aspect ratio) (api parameter mediumHeight)
+     *
+     * If negative (mediumHeight<0) the parameter is ignored and sybos default is used
+     */
+    public int getMediumHeight() {
+        return mediumHeight;
+    }
+    /**
+     * Height of the returned pictures (resized by keeping aspect ratio) (api parameter mediumHeight)
+     *
+     * If negative (mediumHeight<0) the parameter is ignored and sybos default is used
+     */
+    public void setMediumHeight(int mediumHeight) {
+        this.mediumHeight = mediumHeight;
     }
 
     /**
