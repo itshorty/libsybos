@@ -53,6 +53,7 @@ public class SybosEventClient extends SybosClient<Event> {
         }else{
             args.put("z","future");
         }
+        return args;
     }
 
     /**
