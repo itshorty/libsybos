@@ -9,4 +9,4 @@ Implemetierte Typen:
   *  Veranstaltungen
  
 Verwendet in:
-  *  https://github.com/itshorty/sybos2ical (https://ff-esternberg.at/termine)
+  *  https://github.com/itshorty/sybos2ical (https://ff-esternberg.at/news/termine)
