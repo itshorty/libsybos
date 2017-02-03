@@ -27,7 +27,7 @@ public class SybosEventClient extends SybosClient<Event> {
 		Event ev = new Event();
 		ev.setId(Integer.parseInt(getTextContent(el, "id")));
 		ev.setFrom(parseSybosDate(getTextContent(el, "von"), getTextContent(el, "vont")));
-		ev.setFrom(parseSybosDate(getTextContent(el, "bis"), getTextContent(el, "bist")));
+		ev.setTo(parseSybosDate(getTextContent(el, "bis"), getTextContent(el, "bist")));
 		ev.setReferat(getTextContent(el, "referat"));
 		ev.setBezeichnung1(getTextContent(el, "bezeichnung1"));
 		ev.setBezeichnung2(getTextContent(el, "bezeichnung2"));
