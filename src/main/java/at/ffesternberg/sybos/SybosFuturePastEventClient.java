@@ -19,11 +19,11 @@ public class SybosFuturePastEventClient extends SybosEventClient{
     @Override
     public List<Event> loadEntites() throws SybosClientException {
         HashSet<Event> events=new HashSet<Event>();
-        if(isLoadPast()){
+        if(this.isLoadPast()){
             super.setLoadPast(true);
             events.addAll(super.loadEntites());
         }
-        if(isLoadFuture()){
+        if(this.isLoadFuture()){
             super.setLoadPast(false);
             events.addAll(super.loadEntites());
         }

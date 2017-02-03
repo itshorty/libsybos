@@ -77,6 +77,20 @@ public abstract class SybosClient<T extends SybosEntity> {
         List<T> list = new LinkedList<T>();
         Element root = d.getDocumentElement();
         NodeList items = root.getElementsByTagName("item");
+        if (items.getLength() == 0) {
+        	NodeList errorNode = root.getElementsByTagName("error");
+        	if(errorNode.getLength()>0){
+        		String error = getTextContent(root, "error");
+        		if (error.equals(NO_TOKEN)) {
+                    throw new NoSybosTokenException();
+                }
+                Matcher wtMatcher = WRONG_TOKEN.matcher(error);
+                if (wtMatcher.matches()) {
+                    throw new WrongSybosTokenException(wtMatcher.group(1));
+                }
+                throw new SybosClientException("Error response from server: "+error);
+        	}
+        }
         for (int i = 0; i < items.getLength(); i++) {
             Element item = (Element) items.item(i);
             try {
@@ -105,17 +119,14 @@ public abstract class SybosClient<T extends SybosEntity> {
                     .newDocumentBuilder();
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     url.openStream()));
-            reader.mark(100);
-            String line = reader.readLine();
-            if (line.equals(NO_TOKEN)) {
-                throw new NoSybosTokenException();
+            if(log.isTraceEnabled()){
+            	reader.mark(100000);
+            	String line;
+            	while((line=reader.readLine())!=null){
+            		log.trace(line);
+            	}
+            	reader.reset();
             }
-            Matcher wtMatcher = WRONG_TOKEN.matcher(line);
-            if (wtMatcher.matches()) {
-                throw new WrongSybosTokenException(wtMatcher.group(1));
-            }
-            reader.reset();
-
             Document d = db.parse(new InputSource(reader));
             return d;
         } catch (ParserConfigurationException e) {
@@ -143,8 +154,8 @@ public abstract class SybosClient<T extends SybosEntity> {
             sb.append("&thumbHeight=").append(getThumbHeight());
         if(mediumHeight>0)
             sb.append("&mediumHeight").append(getMediumHeight());
-        if (args != null) {
-            for (Entry<String, String> argument : args.entrySet()) {
+        if (getArgs() != null) {
+            for (Entry<String, String> argument : getArgs().entrySet()) {
                 sb.append("&").append(argument.getKey()).append("=")
                         .append(argument.getValue());
             }

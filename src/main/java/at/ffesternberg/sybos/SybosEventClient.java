@@ -48,7 +48,7 @@ public class SybosEventClient extends SybosClient<Event> {
     @Override
     public Map<String, String> getArgs() {
         Map<String,String> args = super.getArgs();
-        if(isLoadPast()){
+        if(loadPast){
             args.put("z","past");
         }else{
             args.put("z","future");
